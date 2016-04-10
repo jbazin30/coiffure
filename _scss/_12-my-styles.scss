@@ -1,0 +1,143 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : 25 juil. 2015, 16:59:32
+    Author     : crash
+*/
+
+html, body {
+    height: 100%;
+}
+body {
+    padding: 0;
+    width: 100%;
+    margin: $margin-auto;
+    background: url('./images/overlay.png'), url('./images/bg.jpg');
+    background-size: 256px 256px, cover;
+    background-attachment: fixed, fixed;
+    background-position: top left, top center;
+    background-repeat: repeat, no-repeat;
+}
+nav,
+main {
+    margin-left: 45%;
+    color: white;
+}
+main {
+    height: calc(100% - 280px);
+}
+header {
+    margin: 0 0 $margin-very-big;
+    padding-top: $margin-small;
+    color: $base-color-link;
+    cursor: pointer;
+}
+header img {
+    width: 25%;
+}
+header, footer {
+    width: 100%;
+    text-align: center;
+}
+footer {
+    position: fixed;
+    bottom: 10px;
+    font-size: 12px;
+    color: $base-color-link;
+}
+section {
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+label {
+    font-weight: bold;
+    margin: 0;
+}
+th, td {
+    border: none;
+}
+th {
+    border-bottom: 1px solid #aaa;
+}
+td {
+    cursor: pointer;
+}
+textarea {
+    width: 100%;
+}
+#index div {
+    text-align: center;
+}
+#index div a {
+    display: inline-block;
+    margin: 0 $margin-very-big;
+}
+#index div a img {
+    max-width: 64px;
+}
+#index img.logo_facturation {
+    width: 56px;
+}
+#depenses label {
+    width: 120px;
+}
+#js_add_client {
+    display: none;
+}
+.selected {
+    background-color: $selected-background;
+}
+.hide {
+    display: none;
+}
+
+#js_facturation input.pres_prix_applied {
+    border: none;
+}
+#js_fiche_client p {
+    margin-top: 1em;
+}
+#js_add_client label,
+#js_fiche_client label {
+    width: 170px;
+}
+.ba {
+    border-style: solid;
+    border-width: 1px;
+}
+.bb {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+.b_white {
+    border-color: white;
+}
+.pa5 {
+    padding: 5px;
+}
+.pt5 {
+    padding-top: 5px;
+}
+.round {
+    border-radius: 5px;
+}
+#paiement img {
+    width: 60px;
+}
+
+.btn_dialog {
+    position: absolute;
+    top: -1000px;
+}
+.scrollable {
+    height: 430px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.ui-dialog textarea {
+    height: 12em;
+}
