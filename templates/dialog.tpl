@@ -5,9 +5,6 @@
         <fieldset>
             <p>Technique : <span class="tech"></span></p>
             <textarea name="details" id="details" class="text ui-widget-content ui-corner-all" rows="20"></textarea>
-
-            <!-- Allow form submission with keyboard without duplicating the dialog button -->
-            <input type="submit" tabindex="-1" class="btn_dialog">
         </fieldset>
     </form>
 </div>
@@ -17,9 +14,6 @@
         <fieldset>
             <p>Technique : <span class="tech"></span></p>
             <textarea name="details" id="details" class="text ui-widget-content ui-corner-all"></textarea>
-
-            <!-- Allow form submission with keyboard without duplicating the dialog button -->
-            <input type="submit" tabindex="-1" class="btn_dialog">
         </fieldset>
     </form>
 </div>
@@ -42,7 +36,6 @@
             <p><label for="cli_naiss">Date de naissance :</label><input type="text" class="datepicker" id="cli_naiss"></p>
             <p><label for="cli_genre">Genre :</label>
                 {LST_GEN}</p>
-            <input type="submit" tabindex="-1" class="btn_dialog">
         </fieldset>
     </form>
 </div>
