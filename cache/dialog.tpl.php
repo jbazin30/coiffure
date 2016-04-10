@@ -82,4 +82,27 @@ $_result_tpl .=  '
 $_result_tpl .=  '
 
 ';
+if ( isset ($this->switch['dialog_get_waiting_fac']))
+{
+$_result_tpl .=  '
+<div id="js_add_waiting_fac" title="Associer une facture">
+    <form>
+        <table>
+            <thead>
+                <tr>
+                    <th>N° facture</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                </tr>
+            </thead>
+            <tbody id="factures">
+            </tbody>
+        </table>
+    </form>
+</div>
+';
+}
+$_result_tpl .=  '
+
+';
 ?>

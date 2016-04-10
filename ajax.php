@@ -36,13 +36,18 @@ Globale::$ajax->add_event(Ajax::TXT, 'delPresFac', 'ajax_del_pres_fac', Http::re
 Globale::$ajax->add_event(Ajax::TXT, 'validateFac', 'ajax_validate_fac', Http::request('fac_num', 'post'), Http::request('pres_num', 'post'), Http::request('pres_remise', 'post'), Http::request('pres_prix_base', 'post'), Http::request('pres_prix_applied', 'post'));
 Globale::$ajax->add_event(Ajax::TXT, 'delFac', 'ajax_del_fac', Http::request('fac_num', 'post'));
 Globale::$ajax->add_event(Ajax::TXT, 'addPai', 'ajax_add_pai', Http::request('fac_num', 'post'), Http::request('montants_pai', 'post'));
-Globale::$ajax->add_event(Ajax::TXT, 'getWaitingFac', 'ajax_get_waiting_fac');
+Globale::$ajax->add_event(Ajax::TXT, 'getWaitingFac', 'ajax_get_waiting_fac', Http::request('fac_num', 'post'));
+Globale::$ajax->add_event(Ajax::TXT, 'addWaitingFac', 'ajax_add_waiting_fac', Http::request('fac_num', 'post'), Http::request('lst_fac', 'post'));
+Globale::$ajax->add_event(Ajax::TXT, 'delIncludedfac', 'ajax_del_included_fac', Http::request('fac_num', 'post'));
 
 // On déclenche un évènement
 Globale::$ajax->trigger(Http::request('mod', 'post'));
 
 /**
- * Ajoute une technique
+ * Edite les services d'une fiche client
+ * @param type $svc_num
+ * @param type $details
+ * @return string
  */
 function ajax_edit_service($svc_num, $details) {
     $sql = 'UPDATE `service` SET svc_details = :details WHERE `svc_num` = :svc_num';
@@ -56,6 +61,13 @@ function ajax_edit_service($svc_num, $details) {
     }
 }
 
+/**
+ * Ajoute un service dans une fiche client
+ * @param type $details
+ * @param type $cli_num
+ * @param type $fam_num
+ * @return string
+ */
 function ajax_add_service($details, $cli_num, $fam_num) {
     $sql = 'INSERT INTO `service`(`svc_num`, `svc_cli_num`, `svc_fam_num`, `svc_date`, `svc_details`) VALUES(null, :cli_num, :fam_num, :time, :details)';
     $paramx = [
@@ -70,6 +82,11 @@ function ajax_add_service($details, $cli_num, $fam_num) {
     }
 }
 
+/**
+ * Supprime un service d'une fiche client
+ * @param type $svc_num
+ * @return string
+ */
 function ajax_del_service($svc_num) {
     $sql = 'DELETE FROM `service` WHERE `svc_num` = :svc_num';
     $paramx = [
@@ -81,6 +98,11 @@ function ajax_del_service($svc_num) {
     }
 }
 
+/**
+ * Récupère la liste des services disponibles
+ * @param type $svc_num
+ * @return type
+ */
 function ajax_get_service($svc_num) {
     $sql = 'SELECT `fam_libelle`, `svc_date`, `svc_details` FROM `service` s INNER JOIN `famille` f ON s.`svc_fam_num` = f.`fam_num` WHERE `svc_num`= :svc_num';
     $paramx = [':svc_num' => $svc_num];
@@ -92,6 +114,13 @@ function ajax_get_service($svc_num) {
     }
 }
 
+/**
+ * Ajoute une dépense
+ * @param type $libel
+ * @param type $prix
+ * @param type $date
+ * @return string
+ */
 function ajax_add_depense($libel, $prix, $date) {
     $sql = 'INSERT INTO `achat` VALUES(null, :libel, :prix, :date)';
     $paramx = [
@@ -105,6 +134,21 @@ function ajax_add_depense($libel, $prix, $date) {
     }
 }
 
+/**
+ * Ajoute un client
+ * @param type $cli_nom
+ * @param type $cli_prenom
+ * @param type $cli_adr
+ * @param type $cli_cp
+ * @param type $cli_ville
+ * @param type $cli_tel
+ * @param type $cli_mobile
+ * @param type $cli_email
+ * @param type $cli_naiss
+ * @param type $cli_genre
+ * @param type $cli_sexe
+ * @return string
+ */
 function ajax_add_client($cli_nom, $cli_prenom, $cli_adr, $cli_cp, $cli_ville, $cli_tel, $cli_mobile, $cli_email, $cli_naiss, $cli_genre, $cli_sexe) {
     $sql = 'INSERT INTO `client` VALUES(null, :cli_nom, :cli_prenom, :cli_adr, :cli_cp, :cli_ville, :cli_tel, :cli_mobile, :cli_email, :cli_naiss, :cli_genre, :cli_sexe)';
     $paramx = [
@@ -126,6 +170,22 @@ function ajax_add_client($cli_nom, $cli_prenom, $cli_adr, $cli_cp, $cli_ville, $
     }
 }
 
+/**
+ * Edite une fiche client
+ * @param type $cli_num
+ * @param type $cli_nom
+ * @param type $cli_prenom
+ * @param type $cli_adr
+ * @param type $cli_cp
+ * @param type $cli_ville
+ * @param type $cli_tel
+ * @param type $cli_mobile
+ * @param type $cli_email
+ * @param type $cli_naiss
+ * @param type $cli_genre
+ * @param type $cli_sexe
+ * @return string
+ */
 function ajax_edit_client($cli_num, $cli_nom, $cli_prenom, $cli_adr, $cli_cp, $cli_ville, $cli_tel, $cli_mobile, $cli_email, $cli_naiss, $cli_genre, $cli_sexe) {
     $sql = 'UPDATE `client` SET `cli_nom` = :cli_nom, `cli_prenom` = :cli_prenom, `cli_adr` = :cli_adr, `cli_cp` = :cli_cp, `cli_ville` = :cli_ville, `cli_tel` = :cli_tel, `cli_mobile` = :cli_mobile, `cli_email` = :cli_email, `cli_naiss` = :cli_naiss, `cli_genre` = :cli_genre, `cli_sexe` = :cli_sexe WHERE `cli_num` = :cli_num';
     $paramx = [
@@ -148,6 +208,11 @@ function ajax_edit_client($cli_num, $cli_nom, $cli_prenom, $cli_adr, $cli_cp, $c
     }
 }
 
+/**
+ * Supprime un client
+ * @param type $cli_num
+ * @return string
+ */
 function ajax_del_client($cli_num) {
     $sql = 'DELETE FROM `client` WHERE `cli_num` = :cli_num';
     $paramx = [
@@ -159,6 +224,11 @@ function ajax_del_client($cli_num) {
     }
 }
 
+/**
+ * Récupère les prestations d'une facture
+ * @param type $fam_num
+ * @return type
+ */
 function ajax_get_pres($fam_num) {
     $sql = 'SELECT `pres_num`, `pres_libelle`, `pres_prix` FROM `prestation` WHERE `fam_num`= :fam_num';
     $paramx = [':fam_num' => $fam_num];
@@ -176,6 +246,12 @@ function ajax_get_pres($fam_num) {
     }
 }
 
+/**
+ * Ajoute des prestations à une facture
+ * @param type $fac_num
+ * @param type $lst_pres
+ * @return string
+ */
 function ajax_add_pres($fac_num, $lst_pres) {
     $datafields = [
         'lg_fac_num',
@@ -198,6 +274,12 @@ function ajax_add_pres($fac_num, $lst_pres) {
     }
 }
 
+/**
+ * Supprime une prestation d'une facture
+ * @param type $fac_num
+ * @param type $pres_num
+ * @return string
+ */
 function ajax_del_pres_fac($fac_num, $pres_num) {
     $sql = 'DELETE FROM `ligne_facture` WHERE `lg_fac_num` = :fac_num AND `lg_pres_num` = :pres_num';
     $paramx = [
@@ -210,8 +292,17 @@ function ajax_del_pres_fac($fac_num, $pres_num) {
     }
 }
 
+/**
+ * Valide une facture provisoire
+ * @param type $fac_num
+ * @param type $pres_num
+ * @param type $pres_remise
+ * @param type $pres_prix_base
+ * @param type $pres_prix_applied
+ * @return string
+ */
 function ajax_validate_fac($fac_num, $pres_num, $pres_remise, $pres_prix_base, $pres_prix_applied) {
-    $sql = 'UPDATE `ligne_facture`, `facture` SET `lg_pres_remise` = :pres_remise, `lg_pres_prix_base` = :pres_prix_base, `lg_pres_prix_applied` = :pres_prix_applied, `facture`.`fac_provisoire` = 0 WHERE `facture`.`fac_num` = `ligne_facture`.`lg_fac_num` AND `lg_fac_num` = :fac_num AND `lg_pres_num` = :pres_num';
+    $sql = 'UPDATE `ligne_facture` lg, `facture` f SET `lg_pres_remise` = :pres_remise, `lg_pres_prix_base` = :pres_prix_base, `lg_pres_prix_applied` = :pres_prix_applied, f.`fac_provisoire` = 0 WHERE (f.`fac_num` = lg.`lg_fac_num`) AND `lg_fac_num` = :fac_num AND `lg_pres_num` = :pres_num';
 
     $paramx = [
         ':fac_num' => $fac_num,
@@ -226,6 +317,11 @@ function ajax_validate_fac($fac_num, $pres_num, $pres_remise, $pres_prix_base, $
     }
 }
 
+/**
+ * Supprime une facture
+ * @param type $fac_num
+ * @return string
+ */
 function ajax_del_fac($fac_num) {
     $sql = 'DELETE f, lf FROM `facture` f LEFT JOIN `ligne_facture` lf ON f.`fac_num` = lf.`lg_fac_num` WHERE `fac_num` = :fac_num';
     $paramx = [
@@ -237,6 +333,12 @@ function ajax_del_fac($fac_num) {
     }
 }
 
+/**
+ * Ajoute les modes de paiement et les montants associés
+ * @param type $fac_num
+ * @param type $montants_pai
+ * @return string
+ */
 function ajax_add_pai($fac_num, $montants_pai) {
     $sql = 'INSERT INTO `paiement` VALUES(null, :fac_num, :type_pai, :montant_pai)';
 
@@ -253,14 +355,54 @@ function ajax_add_pai($fac_num, $montants_pai) {
     return 'successfull';
 }
 
-function ajax_get_waiting_fac() {
-    $sql = 'SELECT `fac_num`, `cli_nom`, `cli_prenom` FROM `client` c INNER JOIN `facture` f ON c.`cli_num` = f.`fac_cli_num`';
-
-    Globale::$requete = Globale::$db->requete($sql);
+/**
+ * Récupère les facture provisoire sauf celle courante
+ * @param type $fac_num
+ * @return type
+ */
+function ajax_get_waiting_fac($fac_num) {
+    $sql = 'SELECT `fac_num`, `cli_nom`, `cli_prenom` FROM `client` c INNER JOIN `facture` f ON c.`cli_num` = f.`fac_cli_num` WHERE f.`fac_provisoire` = 1 AND f.fac_num != :fac_num';
+	$paramx = [
+        ':fac_num' => $fac_num
+    ];
+    Globale::$requete = Globale::$db->requete($sql, $paramx);
     Globale::$resultat = Globale::$db->tableau();
 
     if (Globale::$requete) {
         return json_encode(Globale::$resultat);
+    }
+}
+
+/**
+ * Associe des factures à une autre
+ * @param type $fac_num
+ * @param type $lst_fac
+ * @return string
+ */
+function ajax_add_waiting_fac($fac_num, $lst_fac) {
+	$paramx = [
+        ':fac_num' => $fac_num
+    ];
+    foreach ($lst_fac as $d) {
+        Globale::$requete = Globale::$db->requete('UPDATE `facture` SET `fac_included` = :fac_num, `fac_provisoire` = 0 WHERE `fac_num` = ' . $d, $paramx);
+    }
+
+    if (Globale::$requete) {
+        return 'successfull';
+    }
+}
+
+/**
+ * Supprime l'association d'une facture
+ * @param type $fac_num */
+function ajax_del_included_fac($fac_num) {
+	$paramx = [
+        ':fac_num' => $fac_num
+    ];
+	Globale::$requete = Globale::$db->requete('UPDATE `facture` SET `fac_included` = 0, `fac_provisoire` = 1 WHERE `fac_num` = :fac_num', $paramx);
+
+	if (Globale::$requete) {
+        return 'successfull';
     }
 }
 

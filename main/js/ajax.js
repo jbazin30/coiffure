@@ -11,6 +11,7 @@ if (O.Ajax)
     throw new Error("O.Dialog already exists");
 
 var lst_pres = [];
+var lst_fac = [];
 
 O.Ajax = {
     addService: function (data) {
@@ -195,5 +196,60 @@ O.Ajax = {
             data: data,
             cache: false
         });
-    }
+    },
+    getWaitingFac: function (data) {
+        $.ajax({
+            method: "POST",
+            url: "ajax.php",
+            data: data,
+			dataType: 'json',
+            cache: false
+        }).done(function (response) {
+            $.each(response, function (key, val) {
+                $('#factures').append('<tr data-fac-num="' + val['fac_num'] + '"><td>' + val['fac_num'] + '</td><td>' + val['cli_nom'] + '</td><td>' + val['cli_prenom'] + '</td></tr>');
+            });
+			$('#factures tr').on('click', function () {
+                $(this).toggleClass('selected');
+                var index = lst_fac.indexOf($(this).data('fac-num'));
+                if (index > -1) {
+                    lst_fac.splice(index);
+                } else {
+                    lst_fac.push($(this).data('fac-num'));
+                }
+            });
+        });
+    },
+    addWaitingFac: function (data) {
+        $.ajax({
+            method: "POST",
+            url: "ajax.php",
+            data: data,
+            cache: false
+        }).done(function () {
+			var sessionx = {};
+            setTimeout(function () {
+                location.reload();
+            }, 500);
+        });
+    },
+    delIncludedFac: function (data) {
+        $.ajax({
+            method: "POST",
+            url: "ajax.php",
+            data: data,
+            cache: false
+        }).done(function () {
+            setTimeout(function () {
+                location.reload();
+            }, 500);
+        });
+    },
+	sessionSetter: function (data) {
+		$.ajax({
+            method: "POST",
+            url: "ajax.php",
+            data: data,
+            cache: false
+        });
+	}
 };

@@ -32,7 +32,7 @@
             <tbody>
                 <!-- IFEXIST is_lg_fac -->
                 <!-- BEGIN lst_ligne_fac -->
-                <tr data-pres-num="{lst_ligne_fac.PRES_NUM}">
+                <tr data-pres-num="{lst_ligne_fac.PRES_NUM}" data-fac-num-lg="{lst_ligne_fac.FAC_NUM}">
                     <td class="pres_libel">{lst_ligne_fac.PRES_LIBEL}</td>
                     <td class="pres_prix_base">{lst_ligne_fac.PRES_PRIX_BASE}</td>
                     <td>
@@ -46,7 +46,14 @@
             </tbody>
         </table>
         <div>
-            <p><button></button></p>
+			<!-- IFEXIST is_included_fac -->
+			<p>Factures associées :
+				<!-- BEGIN lst_fac_included -->
+				<button class="js_del_fac_included" data-fac-included="{lst_fac_included.FAC_NUM}"> {lst_fac_included.FAC_NUM} (supprimer)</button>
+				<!-- END lst_fac_included -->
+			</p>
+			<!-- ENDIF -->
+            <p><button class="js_add_waiting_fac">Associer une autre facture</button></p>
         </div>
         <div id="paiement">
             <h1>Paiement</h1>

@@ -9,7 +9,7 @@ class Frame_child {
         // On défini le template
         Globale::$Tpl->set_filenames(['pages_index' => 'pages/pages_index.tpl']);
 
-        $sql = 'SELECT `fac_num`, `cli_nom`, `cli_prenom` FROM `facture` f INNER JOIN `client` c ON f.`fac_cli_num` = c.`cli_num` WHERE `fac_provisoire` = 1';
+        $sql = 'SELECT `fac_num`, `cli_nom`, `cli_prenom` FROM `facture` f INNER JOIN `client` c ON f.`fac_cli_num` = c.`cli_num` WHERE `fac_provisoire` = 1 AND `fac_included` = 0';
         Globale::$db->requete($sql);
         Globale::$resultat = Globale::$db->tableau(PDO::FETCH_NUM);
         if (Globale::$resultat) {

@@ -1,5 +1,6 @@
 /**
  * Création des dialog jQuery UI
+ * La méthode Init permet de créer tous les Dialog nécessaire
  */
 var O;
 if (!O)
@@ -19,8 +20,9 @@ O.Dialog = {
         O.Dialog.getService();
         O.Dialog.addClient();
         O.Dialog.getPrestation();
+        O.Dialog.getWaitingFac();
     },
-    addService: function () {
+    addService: function () { // Initialise la popin d'ajout de service à la fiche client
         var js_add_svc = $('#js_add_service');
         js_add_svc.dialog({
             autoOpen: false,
@@ -34,18 +36,18 @@ O.Dialog = {
                         fam_num: $('#js_add_service .tech').data('fam-num'),
                         details: $('#js_add_service #details').val()
                     };
-                    O.Ajax.addService(data);
+                    O.Ajax.addService(data); // Event Ajax pour l'ajout du service
                 },
                 'Annuler': function () {
                     js_add_svc.dialog('close');
                 }
             },
             close: function () {
-                //$('#js_frm_service').reset();
+                $('#js_frm_service').reset();
             }
         });
     },
-    getService: function () {
+    getService: function () { // Initialise la popin d'édition de service
         var js_get_svc = $('#js_get_service');
         js_get_svc.dialog({
             autoOpen: false,
@@ -58,7 +60,7 @@ O.Dialog = {
                         svc_num: $('#js_get_service #js_frm_service').data('num'),
                         details: $('#js_get_service #details').val()
                     };
-                    O.Ajax.editService(data);
+                    O.Ajax.editService(data); // Event Ajax pour l'enregistrement de la modification du service
                 },
                 'Annuler': function () {
                     js_get_svc.dialog('close');
@@ -69,7 +71,7 @@ O.Dialog = {
             }
         });
     },
-    addClient: function () {
+    addClient: function () { // Initialise la popin d'ajout de client
         var js_add_client = $('#js_add_client');
         js_add_client.dialog({
             autoOpen: false,
@@ -101,7 +103,7 @@ O.Dialog = {
             }
         });
     },
-    getPrestation: function () {
+    getPrestation: function () { // Initialise la popin pour l'ajout de prestation.
         var js_add_pres = $('#js_add_pres');
         js_add_pres.dialog({
             autoOpen: false,
@@ -125,6 +127,33 @@ O.Dialog = {
             },
             close: function () {
                 $('#prestations').empty();
+            }
+        });
+    },
+    getWaitingFac: function () { // Initialise la popin pour l'association de facture
+        var js_add_waiting_fac = $('#js_add_waiting_fac');
+        js_add_waiting_fac.dialog({
+            autoOpen: false,
+            width: 500,
+            modal: true,
+            buttons: {
+                'Ajouter': function () {
+                    var data = {
+                        mod: 'addWaitingFac',
+                        lst_fac: lst_fac,
+                        fac_num: $('#js_facturation p:first-child').data('fac-num')
+                    };
+                    O.Ajax.addWaitingFac(data);
+                    js_add_waiting_fac.dialog('close');
+                },
+                'Annuler': function () {
+                    $('#factures').empty();
+                    lst_fac = [];
+                    js_add_waiting_fac.dialog('close');
+                }
+            },
+            close: function () {
+                $('#factures').empty();
             }
         });
     }

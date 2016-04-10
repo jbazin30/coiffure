@@ -24,7 +24,7 @@ body {
 nav,
 main {
     margin-left: 45%;
-    color: white;
+    color: $base-color-link;
 }
 main {
     height: calc(100% - 280px);
@@ -52,6 +52,9 @@ section {
     height: 100%;
     align-items: center;
     justify-content: space-between;
+}
+#js_facturation table {
+	color: $base-color-link;
 }
 label {
     font-weight: bold;

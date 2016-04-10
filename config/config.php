@@ -6,7 +6,7 @@
 define('SQL_SERVER', 'localhost'); // adresse/nom du serveur de base de données
 define('SQL_LOGIN', 'root'); // login du serveur
 define('SQL_PASS', ''); // mot de passe du serveur
-define('SQL_DB', 'coiffure'); // base de données
+define('SQL_DB', 'coiffure_dev'); // base de données
 define('SQL_PORT', null); // port du serveur de base de données
 define('SQL_TYPE', 'mysql'); // défini le type de serveur utilisé
 
