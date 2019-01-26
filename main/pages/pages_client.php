@@ -32,7 +32,7 @@ class Frame_child {
             'CLI_NAIS' => $result['cli_naiss']
         ]);
 
-        $sql2 = 'SELECT `svc_num`, `svc_date`, `fam_libelle` FROM service s INNER JOIN famille f ON s.svc_fam_num = f.fam_num WHERE svc_cli_num = :num ORDER BY svc_date DESC';
+        $sql2 = 'SELECT `svc_num`, `svc_date`, `fam_libelle` FROM service s INNER JOIN famille f ON s.svc_fam_num = f.fam_num WHERE svc_cli_num = :num ORDER BY svc_num DESC';
         Globale::$db->requete($sql2, $paramx);
         Globale::$resultat = Globale::$db->tableau(PDO::FETCH_NUM);
 
